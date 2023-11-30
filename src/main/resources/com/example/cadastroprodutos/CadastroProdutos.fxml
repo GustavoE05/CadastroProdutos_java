@@ -22,15 +22,15 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="227.0" layoutY="14.0" text="Nome" />
-            <TextField fx:id="nomeTextField" layoutX="226.0" layoutY="31.0" />
-            <TextField fx:id="quantidadeTextField" layoutX="226.0" layoutY="82.0" />
-            <TextField fx:id="precoTextField" layoutX="226.0" layoutY="133.0" />
-            <TextField fx:id="descricaoTextField" layoutX="226.0" layoutY="189.0" />
-            <Label layoutX="227.0" layoutY="65.0" text="Quantidade" />
-            <Label layoutX="229.0" layoutY="116.0" text="Preço" />
-            <Label layoutX="226.0" layoutY="172.0" text="Descrição" />
-            <Button fx:id="btncadastraProdutos" layoutX="225.0" layoutY="249.0" mnemonicParsing="false" onAction="#cadastrarProduto" prefHeight="29.0" prefWidth="150.0" text="CADASTRAR" />
+            <Label layoutX="228.0" text="Nome" />
+            <TextField fx:id="nomeTextField" layoutX="226.0" layoutY="17.0" />
+            <TextField fx:id="quantidadeTextField" layoutX="226.0" layoutY="68.0" />
+            <TextField fx:id="precoTextField" layoutX="226.0" layoutY="119.0" />
+            <TextField fx:id="descricaoTextField" layoutX="226.0" layoutY="172.0" />
+            <Label layoutX="228.0" layoutY="51.0" text="Quantidade" />
+            <Label layoutX="230.0" layoutY="102.0" text="Preço" />
+            <Label layoutX="225.0" layoutY="155.0" text="Descrição" />
+            <Button fx:id="btncadastraProdutos" layoutX="225.0" layoutY="234.0" mnemonicParsing="false" onAction="#cadastrarProduto" prefHeight="29.0" prefWidth="150.0" text="CADASTRAR" />
          </children>
       </AnchorPane>
    </center>

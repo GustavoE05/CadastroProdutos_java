@@ -37,7 +37,7 @@ public class ProdutosController {
         carregarListaProdutos(); // Atualiza a lista de produtos
     }
 
-    private void carregarListaProdutos() {
+    private void carregarListaProdutos(){
         BancoDados connect = new BancoDados();
         Connection connectDB = connect.getConnection();
 
@@ -52,6 +52,8 @@ public class ProdutosController {
 
                 // Adiciona os nomes dos produtos ao ListView
                 while (resultSet.next()) {
+                    int idProduto = resultSet.getInt("produto_id");
+
                     String nomeProduto = resultSet.getString("nome");
 
                     double precoProduto = resultSet.getDouble("preco");
@@ -62,7 +64,7 @@ public class ProdutosController {
 
                     //String categoriaProduto = resultSet.getString("categoria");
 
-                    String infoProduto = String.format("Nome: %s%nPreço: %.2f%nQuantidade: %d%nDescrição: %s", nomeProduto, precoProduto, quantidadeProduto, descricaoProduto);
+                    String infoProduto = String.format("Id: %d%n Nome: %s%nPreço: %.2f%nQuantidade: %d%nDescrição: %s", idProduto, nomeProduto, precoProduto, quantidadeProduto, descricaoProduto);
 
                     productListView.getItems().add(infoProduto);
                 }
@@ -76,24 +78,29 @@ public class ProdutosController {
     }
 
     @FXML
-    private void deletarProduto() {
+    private void deletarProduto() throws SQLException {
         // Obtém o índice do produto selecionado na ListView
         int selectedIndex = productListView.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
             // Obtém o nome do produto selecionado
-            String nomeProduto = productListView.getItems().get(selectedIndex).split("\n")[0].substring(6);
-
+            System.out.println(productListView.getItems().get(selectedIndex));
+            //productListView.getItems().get(selectedIndex).split("\n")[0].substring(6);
+            String idProdutoStr = productListView.getItems().get(selectedIndex).split("\n")[0].substring(4);
+            System.out.println(idProdutoStr);
+            //int idProduto = Integer.parseInt(idProdutoStr);
             BancoDados connect = new BancoDados();
             Connection connectDB = connect.getConnection();
 
             if (connectDB != null) {
                 try {
+                    System.out.println(idProdutoStr);
                     // Deleta o produto do banco de dados com base no nome
-                    String query = "DELETE FROM produto WHERE nome = ?";
-                    PreparedStatement preparedStatement = connectDB.prepareStatement(query);
-                    preparedStatement.setString(1, nomeProduto);
-                    preparedStatement.executeUpdate();
+                    String query = "DELETE FROM produto WHERE produto_id = ?";
+                    PreparedStatement requisicao = connectDB.prepareStatement(query);
+                    requisicao.setString(1, idProdutoStr);
+                    System.out.println(requisicao);
+                    requisicao.execute();
 
                     // Remove o produto da ListView
                     productListView.getItems().remove(selectedIndex);
@@ -101,6 +108,7 @@ public class ProdutosController {
                     // Informa que o produto foi removido com sucesso
                     System.out.println("Produto removido com sucesso!");
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     System.out.println("Erro ao deletar produto: " + e.getMessage());
                 }
             } else {
