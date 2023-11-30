@@ -15,10 +15,10 @@ public class CategoriasContoller {
     @FXML
     private void initialize() {
         // Chame este método durante a inicialização do controlador para carregar as categorias
-        //carregarCategorias();
+        carregarCategorias();
     }
 
-    /*private void carregarCategorias() {
+    private void carregarCategorias() {
         // Carregue as categorias do banco de dados e adicione ao ListView
         BancoDados connect = new BancoDados();
         Connection connectDB = connect.getConnection();
@@ -45,6 +45,6 @@ public class CategoriasContoller {
             System.out.println("Falha ao conectar ao banco de dados.");
         }
     }
-    */
+
     }
 

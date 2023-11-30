@@ -76,6 +76,42 @@ public class ProdutosController {
     }
 
     @FXML
+    private void deletarProduto() {
+        // Obtém o índice do produto selecionado na ListView
+        int selectedIndex = productListView.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex >= 0) {
+            // Obtém o nome do produto selecionado
+            String nomeProduto = productListView.getItems().get(selectedIndex).split("\n")[0].substring(6);
+
+            BancoDados connect = new BancoDados();
+            Connection connectDB = connect.getConnection();
+
+            if (connectDB != null) {
+                try {
+                    // Deleta o produto do banco de dados com base no nome
+                    String query = "DELETE FROM produto WHERE nome = ?";
+                    PreparedStatement preparedStatement = connectDB.prepareStatement(query);
+                    preparedStatement.setString(1, nomeProduto);
+                    preparedStatement.executeUpdate();
+
+                    // Remove o produto da ListView
+                    productListView.getItems().remove(selectedIndex);
+
+                    // Informa que o produto foi removido com sucesso
+                    System.out.println("Produto removido com sucesso!");
+                } catch (SQLException e) {
+                    System.out.println("Erro ao deletar produto: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Falha ao conectar ao banco de dados.");
+            }
+        } else {
+            System.out.println("Nenhum produto selecionado para deletar.");
+        }
+    }
+
+    @FXML
     private void mostrarTelaCadastroProdutos() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CadastroProdutos.fxml"));

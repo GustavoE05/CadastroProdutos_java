@@ -67,7 +67,7 @@ public class CadastroUsuario{
             Connection connectDB = connect.getConnection();
 
             if (connectDB != null) {
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/" ,"Gusttavo", "Gremio 1903")){
+                try {
                     String query = "INSERT INTO login (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)";
                     PreparedStatement preparedStatement = connectDB.prepareStatement(query);
 
